@@ -1,0 +1,86 @@
+  
+import 'package:flutter/material.dart';
+
+void main() => runApp(App());
+
+class App extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Kristin Conika Saragih / 6SIA1',
+      home: Scaffold( backgroundColor: Colors.blueGrey,
+        appBar: AppBar( 
+          title: Text('Input Biodata Diri'),
+        ),
+        body: Biodata(),
+      ),
+    );
+  }
+}
+
+class DataBiodata {
+  String namalengkap;
+  String jeniskelamin;
+  String hobi;
+
+
+  DataBiodata({this.namalengkap, this.jeniskelamin, this.hobi});
+}
+
+// class Biodata
+class Biodata extends StatefulWidget {
+  _MyappState createState() => _MyappState();
+}
+
+class _MyappState extends State<Biodata> {
+  //deklarasi variabel
+  final txtnamalengkap = TextEditingController();
+  final txtjeniskelamin = TextEditingController();
+  final txthobi = TextEditingController();
+
+  List<Widget> data = [];
+
+  onSimpan() {
+    setState(() {
+      data.add(ListTile(
+        title: Text(txtnamalengkap.text),
+        subtitle: Text(txtjeniskelamin.text),
+        trailing: Text(txthobi.text),
+      ));
+      txtnamalengkap.clear();
+      txtjeniskelamin.clear();
+      txthobi.clear();
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              TextField(
+                controller: txtnamalengkap,
+                decoration: InputDecoration(hintText: 'Nama Lengkap'),
+              ),
+              TextField(
+                controller: txtjeniskelamin,
+                decoration: InputDecoration(hintText: 'Jenis Kelamin'),
+              ),
+              TextField(
+                controller: txthobi,
+                decoration: InputDecoration(hintText: 'Hobi'),
+              ),
+              Divider(height: 5.0),
+              ElevatedButton(child: Text("Simpan"), onPressed: onSimpan),
+            ],
+          ),
+        ),
+        new Column(
+          children: data,
+        )
+      ],
+    );
+  }
+}
